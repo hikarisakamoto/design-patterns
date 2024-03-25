@@ -1,5 +1,11 @@
 ﻿using System.Text;
 
+var builder = new HtmlBuilder("ul");
+builder.AddChild("li", "hello");
+builder.AddChild("li", "world");
+
+Console.WriteLine(builder.ToString());
+
 public class HtmlElement
 {
     public string Name, Text;
@@ -10,7 +16,7 @@ public class HtmlElement
     {
 
     }
-     
+
     public HtmlElement(string name, string text)
     {
         Name = name ?? throw new ArgumentNullException(paramName: nameof(name));
@@ -60,5 +66,15 @@ public class HtmlBuilder
     {
         var element = new HtmlElement(childName, childText);
         root.Elements.Add(element);
+    }
+
+    public override string ToString()
+    {
+        return root.ToString();
+    }
+
+    public void Clear()
+    {
+        root = new HtmlElement { Name = rootName };
     }
 }
